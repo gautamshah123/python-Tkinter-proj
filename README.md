@@ -1,4 +1,3 @@
-# python-Tkinter-proj
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -21,6 +20,8 @@ def add_expense():
         conn.close()
         update_expense_list()
         messagebox.showinfo("Success", "Expense added successfully")
+    except ValueError:
+        messagebox.showerror("Error", "Amount must be a number")
     except Exception as e:
         messagebox.showerror("Error", f"Failed to add expense: {str(e)}")
 
@@ -88,10 +89,11 @@ delete_button.grid(row=5, column=0, columnspan=2, padx=5, pady=5)
 
 # Set background color for the Treeview widget
 style = ttk.Style()
-style.configure("Treeview", background="#FFFFFF", foreground="#000000")
+style.configure("Treeview", background="yellow", foreground="#000000")
 
 # Treeview to display expenses
-expenses_tree = ttk.Treeview(root, columns=("Amount", "Category", "Description", "Date"), show='headings')
+expenses_tree = ttk.Treeview(root, columns=("ID", "Amount", "Category", "Description", "Date"))
+expenses_tree.heading('ID', text="ID")
 expenses_tree.heading('Amount', text="Amount")
 expenses_tree.heading('Category', text="Category")
 expenses_tree.heading('Description', text="Description")
@@ -100,6 +102,5 @@ expenses_tree.grid(row=6, column=0, columnspan=2, padx=5, pady=5)
 
 update_expense_list()
 
-root.geometry('680x510+0+0')
+root.geometry('1200x510+0+0')
 root.mainloop()
-
